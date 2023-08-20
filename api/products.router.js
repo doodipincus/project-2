@@ -13,9 +13,11 @@ router.get('/:id', productsController.getProductById)
 router.post('/', productsController.addProduct)
 
 // // PUT localhost:8020/api/users/
-// router.put('/', productsController.addUser)
+router.put('/:id', productsController.putProduct)
 
 // // DELETE localhost:8020/api/users/
-// router.delete('/', productsController.addUser)
+router.delete('/:id', productsController.deleteProduct)
+
+router.patch('/:id', productsController.ChangeInOne)
 
 export default router;

@@ -30,10 +30,44 @@ const addProduct = async (id, title, price, description, category, image, rating
     }
 };
 
+
+const putProduct = async (id, title, price, description, category, image, rating, quantity) => {
+    try {
+        const putProduct = await productsDal.putProduct(id, title, price, description, category, image, rating, quantity);
+        return putProduct;
+    } catch (err) {
+        console.error('Error reading data:', err);
+        throw err;
+    }
+};
+
+const deleteProduct = async (id) => {
+    try {
+        const product = await productsDal.deleteProduct(id);
+        return product;
+    } catch (err) {
+        console.error('Error reading data:', err);
+        throw err;
+    }
+};
+
+const ChangeInOne = async (id, quantity) => {
+    try {
+        const product = await productsDal.ChangeInOne(id, quantity);
+        return product;
+    } catch (err) {
+        console.error('Error reading data:', err);
+        throw err;
+    }
+};
 const productsService = {
     getProducts,
     getProductById,
-    addProduct
+    addProduct,
+    putProduct,
+    deleteProduct,
+    ChangeInOne
+
 
 };
 
