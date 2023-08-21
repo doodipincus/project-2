@@ -1,7 +1,7 @@
-// import products from '../data.json' assert {type: 'json'}
-// const productsObj = JSON.parse(products)
 import fs from 'fs';
 import { promisify } from 'util';
+
+let data = ''
 
 const productsObj = async () => {
     try {
@@ -9,41 +9,29 @@ const productsObj = async () => {
         const dataAsync = await readFileAsync('./data.json', 'utf8');
         const jsonData = JSON.parse(dataAsync);
         return jsonData
-    }catch (err) {
+    } catch (err) {
         console.error('Error reading data:', err);
         throw err;
     }
-     
 }
 
-const write = async (arr) => {
-    try {
-        const jsonData = JSON.stringify(arr);
-        // console.log(jsonData)
-        const writeFileAsync = promisify(fs.writeFile)
-        const dataAsync = await writeFileAsync('./data.json', jsonData);
-        return dataAsync
+productsObj()
+    .then(promise => data = promise)
+    .catch(e => console.log(e))
 
-    }catch (err) {
-        console.error('Error reading data:', err);
-        throw err;
-    }
-     
-}
-const getProducts = async () => {
 
-    const dudi = await productsObj()
-    return dudi
+const getProducts = () => {
+    return data
 };
 
-const getProductById = async (id) => {
+const getProductById = (id) => {
 
-    const dudi = await productsObj()
-    const product = dudi.find(product => id === String(product.id));
+    const product = data.find(product => id === String(product.id));
     return product;
 };
 
-const addProduct = async (id, title, price, description, category, image, rating, quantity) => {
+const addProduct = (id, title, price, description, category, image, rating, quantity) => {
+
     const product = {
         id,
         title,
@@ -54,17 +42,14 @@ const addProduct = async (id, title, price, description, category, image, rating
         rating,
         quantity,
     }
-    const dudi = await productsObj()
-    dudi.push(product)
-    const x = await write(dudi)
-    const y = await productsObj(x)
-    return y
+    data.push(product)
+    return data
 };
 
-const putProduct = async (id, title, price, description, category, image, rating, quantity) => {
-    const dudi = await productsObj()
-    const index = dudi.findIndex(product => product.id == id);
-    dudi[index] = {
+const putProduct = (id, title, price, description, category, image, rating, quantity) => {
+
+    const index = data.findIndex(product => product.id == id);
+    data[index] = {
         id,
         title,
         price,
@@ -74,38 +59,21 @@ const putProduct = async (id, title, price, description, category, image, rating
         rating,
         quantity,
     }
-    const x = await write(dudi)
-    const y = await productsObj(x)
-    return y
+    return data
 };
 
-const deleteProduct = async (id) => {
+const deleteProduct = (id) => {
 
-    const dudi = await productsObj()
-    const index = dudi.findIndex(product => product.id == id);
-    dudi.splice(index, 1)
-    const x = await write(dudi)
-    const y = await productsObj(x)
-    return y
-};
+    const index = data.findIndex(product => product.id == id);
+    data.splice(index, 1)
+}
 
-const ChangeInOne = async (id, quantity) => {
 
-    const dudi = await productsObj()
-    const index = dudi.findIndex(product => product.id == id);
+const ChangeInOne = (id, quantity) => {
 
-    // console.log(`quantity is ${index.quantity}`)
-    // if(quantity === (-1)){
-    //     index.quantity--
-    // }
-    // if(quantity === (+1)){
-    //     index.quantity++
-    // }
-    dudi[index].quantity -= 1
-    const x = await write(dudi)
-    const y = await productsObj(x)
-    return y
-
+    const index = data.findIndex(product => product.id == id);
+    data[index].quantity -= 1
+    return data[index]
 };
 
 const productsDal = {
