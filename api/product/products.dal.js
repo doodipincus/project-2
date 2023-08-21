@@ -1,5 +1,3 @@
-// import fs from 'fs';
-// import { promisify } from 'util';
 import jsonfile from 'jsonfile'
 
 let data = []

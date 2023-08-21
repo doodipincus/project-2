@@ -1,5 +1,3 @@
-// import fs from 'fs';
-// import { promisify } from 'util';
 import jsonfile from 'jsonfile'
 
 let users = []
@@ -32,35 +30,18 @@ const addUser = (id, email, password, isAdmin) => {
     return 'Registration has been successfully completed'
 };
 
-// app.post('/login', async (req, res) => {
-// const { email, password } = req.body;
-
-
 const login = (email, password) => {
     const user = users.find(user => user.email === email);
     if (user) {
-        // const result = bcrypt.compare(password, user.password);
-        return 'Login was successful'
+        if (user.password === password) {
+            return 'Login was successful'
+        } else {
+            return 'The operation failed'
+        }
+    } else {
+        return 'User does not exist'
     }
 }
-//     try {
-
-//         // console.log(user)
-
-//             // console.log(result)
-//             if (result) {
-//                 res.send('User is connected');
-//             } else {
-//                 res.send('Wrong credentials');
-//             }
-//         } else {
-//             res.send('User not found');
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//         res.status(500).send('Server error');
-//     }
-// });
 
 const putUser = (id, email, password, isAdmin) => {
 
@@ -81,31 +62,15 @@ const deleteUser = (id) => {
     return 'The user has been deleted'
 }
 
-
-// const ChangeInOne = (id, quantity) => {
-
-//     const index = data.findIndex(product => product.id == id);
-
-//     // if(quantity === 'sold'){
-//     //     data[index].quantity -= 1
-//     // }else{
-//     //     data[index].quantity += 1
-//     // }
-
-//     return data[index]
-// };
-
-
-
 const usersDal = {
     getUsers,
     getUserById,
     addUser,
     login,
-    // isAdmin
     putUser,
     deleteUser,
-    // ChangeInOne
+    users
 };
 
+// export default users;
 export default usersDal;

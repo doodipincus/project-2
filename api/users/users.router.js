@@ -16,12 +16,10 @@ router.post('/',middleware.validations, middleware.passwordEncryption, usersCont
 router.post('/login',middleware.validations, usersController.login)
 
 // //
-router.put('/:id',middleware.selfUser, usersController.putUser)
+router.put('/:id',middleware.selfUser, middleware.validations, middleware.passwordEncryption, usersController.putUser)
 
 // //delete product
 router.delete('/:id', middleware.isAdmin, usersController.deleteUser)
 
-// //change quantity
-// router.patch('/:id', usersController.ChangeInOne)
 
 export default router;

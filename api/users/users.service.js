@@ -60,15 +60,7 @@ const deleteUser = async (id) => {
     }
 };
 
-// const ChangeInOne = async (id, quantity) => {
-//     try {
-//         const product = await usersDal.ChangeInOne(id, quantity);
-//         return product;
-//     } catch (err) {
-//         console.error('Error reading data:', err);
-//         throw err;
-//     }
-// };
+
 const productsService = {
     getUsers,
     getUserById,
@@ -76,9 +68,6 @@ const productsService = {
     login,
     putUser,
     deleteUser,
-    // ChangeInOne
-
-
 };
 
 export default productsService;

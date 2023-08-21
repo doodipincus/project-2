@@ -2,8 +2,13 @@ import jsonfile from 'jsonfile'
 import Joi from 'joi'
 import bcrypt from "bcrypt";
 
+// import userDal from "./users.dal.js"
+
 const saltRounds = 10;
 
+
+// let data = userDal.users
+// console.log(data)
 
 let data = []
 
@@ -13,9 +18,15 @@ jsonfile.readFile('./data.users.json', (err, arr) => {
 })
 
 
+// jsonfile.readFile('/users.dal.js', (err, arr) => {
+//     if (err) console.error(err)
+//     data = arr
+// })
+
+
 const isAdmin = (req, res, next) => {
     const email = req.query.email
-    const user = data.find(user => user.email === email);
+    const user = data.find(user => String(user.email) === email);
     if (user) {
         if (user.isAdmin) {
             next()
@@ -45,7 +56,7 @@ const authorizedUser = (req, res, next) => {
 const selfUser = (req, res, next) => {
     const { id } = req.params
     const email = req.query.email
-    const user = data.find(user => user.email === email);
+    const user = data.find(user => String(user.email) === email);
     if (user) {
         if (String(user.id) === id) {
             next()
