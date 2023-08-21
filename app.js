@@ -1,13 +1,15 @@
 import express from 'express';
 
-import productsRouter from './api/products.router.js';
+import productsRouter from './api/product/products.router.js';
+import usersRouter from './api/users/users.router.js';
 
 const app = express();
 const port = 3000;
 app.use(express.json())
 
 
-app.use('/api', productsRouter)
+app.use('/api/products', productsRouter)
+app.use('/api/users', usersRouter)
 
 
 app.listen(port, () => {

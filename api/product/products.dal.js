@@ -1,23 +1,13 @@
-import fs from 'fs';
-import { promisify } from 'util';
+// import fs from 'fs';
+// import { promisify } from 'util';
+import jsonfile from 'jsonfile'
 
-let data = ''
+let data = []
 
-const productsObj = async () => {
-    try {
-        const readFileAsync = promisify(fs.readFile)
-        const dataAsync = await readFileAsync('./data.json', 'utf8');
-        const jsonData = JSON.parse(dataAsync);
-        return jsonData
-    } catch (err) {
-        console.error('Error reading data:', err);
-        throw err;
-    }
-}
-
-productsObj()
-    .then(promise => data = promise)
-    .catch(e => console.log(e))
+jsonfile.readFile('./data.products.json', (err, arr) => {
+    if (err) console.error(err)
+    data = arr
+})
 
 
 const getProducts = () => {
@@ -48,7 +38,7 @@ const addProduct = (id, title, price, description, category, image, rating, quan
 
 const putProduct = (id, title, price, description, category, image, rating, quantity) => {
 
-    const index = data.findIndex(product => product.id == id);
+    const index = data.findIndex(product => String(product.id) === id);
     data[index] = {
         id,
         title,
@@ -64,15 +54,20 @@ const putProduct = (id, title, price, description, category, image, rating, quan
 
 const deleteProduct = (id) => {
 
-    const index = data.findIndex(product => product.id == id);
+    const index = data.findIndex(product => String(product.id) === id);
     data.splice(index, 1)
 }
 
 
 const ChangeInOne = (id, quantity) => {
 
-    const index = data.findIndex(product => product.id == id);
-    data[index].quantity -= 1
+    const index = data.findIndex(product => String(product.id) === id);
+    const {sold} = quantity
+    if(sold){
+        data[index].quantity -= sold
+    }else{
+        data[index].quantity += 1
+    }
     return data[index]
 };
 

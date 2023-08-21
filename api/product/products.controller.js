@@ -58,8 +58,8 @@ const deleteProduct = async (req, res) => {
 const ChangeInOne = async (req, res) => {
     try {
         const {id} = req.params;
-        // const quantity = req.body
-        const quantity = 0
+        const quantity = req.body
+        // const quantity = 0
         const product = await productsService.ChangeInOne(id, quantity);
             return res.status(200).json(product)
     } catch (error) {
