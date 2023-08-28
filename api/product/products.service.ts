@@ -1,6 +1,6 @@
-import productsDal from './products.dal.js';
+import productsDal from './products.dal';
 
-const getProducts = async () => {
+const getProducts = async (): Promise<any> => {
     try {
         const products = await productsDal.getProducts();
         return products;
@@ -10,7 +10,7 @@ const getProducts = async () => {
     }
 };
 
-const getProductById = async (id) => {
+const getProductById = async (id: string): Promise<any> => {
     try {
         const product = await productsDal.getProductById(id);
         return product;
@@ -20,7 +20,16 @@ const getProductById = async (id) => {
     }
 };
 
-const addProduct = async (id, title, price, description, category, image, rating, quantity) => {
+const addProduct = async (
+    id: string,
+    title: string,
+    price: number,
+    description: string,
+    category: string,
+    image: string,
+    rating: number,
+    quantity: number
+): Promise<any> => {
     try {
         const product = await productsDal.addProduct(id, title, price, description, category, image, rating, quantity);
         return product;
@@ -30,8 +39,16 @@ const addProduct = async (id, title, price, description, category, image, rating
     }
 };
 
-
-const putProduct = async (id, title, price, description, category, image, rating, quantity) => {
+const putProduct = async (
+    id: string,
+    title: string,
+    price: number,
+    description: string,
+    category: string,
+    image: string,
+    rating: number,
+    quantity: number
+): Promise<any> => {
     try {
         const putProduct = await productsDal.putProduct(id, title, price, description, category, image, rating, quantity);
         return putProduct;
@@ -41,7 +58,7 @@ const putProduct = async (id, title, price, description, category, image, rating
     }
 };
 
-const deleteProduct = async (id) => {
+const deleteProduct = async (id: string): Promise<any> => {
     try {
         const product = await productsDal.deleteProduct(id);
         return product;
@@ -51,7 +68,7 @@ const deleteProduct = async (id) => {
     }
 };
 
-const ChangeInOne = async (id, quantity) => {
+const ChangeInOne = async (id: string, quantity: { sold: number }): Promise<any> => {
     try {
         const product = await productsDal.ChangeInOne(id, quantity);
         return product;
@@ -60,6 +77,7 @@ const ChangeInOne = async (id, quantity) => {
         throw err;
     }
 };
+
 const productsService = {
     getProducts,
     getProductById,
@@ -67,8 +85,6 @@ const productsService = {
     putProduct,
     deleteProduct,
     ChangeInOne
-
-
 };
 
 export default productsService;
