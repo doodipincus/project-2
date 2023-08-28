@@ -1,6 +1,4 @@
-import { type } from 'express/lib/response';
 import jsonfile from 'jsonfile';
-// import { Product } from './product'; // Import the product interface or type if defined
 
 type Rating = { rate: number, count: number }
 
