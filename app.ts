@@ -6,8 +6,16 @@ import cors from 'cors'
 const app = express();
 const port = 3000;
 
+
+const corsOptions = {
+    origin: 'https://only-shop.onrender.com', // Replace with your actual frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+};
+
 app.use(express.json());
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use('/api/products', productsRouter);
 app.use('/api/users', usersRouter);
