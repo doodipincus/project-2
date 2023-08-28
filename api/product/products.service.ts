@@ -27,7 +27,7 @@ const addProduct = async (
     description: string,
     category: string,
     image: string,
-    rating: number,
+    rating: { rate: number, count: number },
     quantity: number
 ): Promise<any> => {
     try {
@@ -46,7 +46,7 @@ const putProduct = async (
     description: string,
     category: string,
     image: string,
-    rating: number,
+    rating: { rate: number, count: number },
     quantity: number
 ): Promise<any> => {
     try {

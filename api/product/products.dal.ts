@@ -1,5 +1,19 @@
+import { type } from 'express/lib/response';
 import jsonfile from 'jsonfile';
-import { Product } from './product'; // Import the product interface or type if defined
+// import { Product } from './product'; // Import the product interface or type if defined
+
+type Rating = { rate: number, count: number }
+
+interface Product {
+    id: string
+    title: string
+    price: number
+    description: string
+    category: string
+    image: string
+    rating: Rating,
+    quantity: number
+}
 
 let data: Product[] = [];
 
@@ -24,7 +38,7 @@ const addProduct = (
     description: string,
     category: string,
     image: string,
-    rating: number,
+    rating: Rating,
     quantity: number
 ): Product[] => {
     const product: Product = {
@@ -48,7 +62,7 @@ const putProduct = (
     description: string,
     category: string,
     image: string,
-    rating: number,
+    rating: Rating,
     quantity: number
 ): Product[] => {
     const index = data.findIndex(product => String(product.id) === id);
